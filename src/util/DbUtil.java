@@ -7,32 +7,19 @@ import util.DbUtil;
 
 public class DbUtil {
 	
-	//µÚÒ»²½
-	//Ê×ÏÈ»ñÈ¡Êı¾İ¿âÁ¬½Ó£º1.Êı¾İ¿âµØÖ·£¬ÓÃ»§Ãû£¬ÃÜÂë¡£»ñÈ¡Á¬½Ó£ºdrivermanager.getconnection
-	//¸ù¾İÊı¾İ¿âÀàĞÍÀ´¼ÓÔØÊı¾İ¿âÇı¶¯£¬£¬ÓÃClass.forName(jdbcName)À´´´½¨¶ÔÏó
-	//connection con,¶ÔÓÚcon¶ÔÏó£¬ĞèÒªclose
 	
-	private String dbUrl="jdbc:mysql://localhost:3306/db_gtalk";
+	private String dbUrl="jdbc:mysql://localhost:3306/db_gtalk?characterEncoding=gbk";
 	private String dbUserName="root";
 	private String dbPassword="liuscut-jnu";
 	private String jdbcName="com.mysql.jdbc.Driver";
 	
-	/**
-	 * »ñÈ¡Êı¾İ¿âÁ¬½Ó
-	 * @return
-	 * @throws Exception
-	 */
+
 	public Connection getCon() throws Exception{
 		Class.forName(jdbcName);
 		Connection con=DriverManager.getConnection(dbUrl,dbUserName,dbPassword);
 		return con;
 	}
-	
-	/**
-	 * ¹Ø±ÕÊı¾İ¿âÁ¬½Ó
-	 * @param con
-	 * @throws Exception
-	 */
+
 	public void closeCon(Connection con) throws Exception{
 		if(con!=null){
 			con.close();
@@ -43,7 +30,7 @@ public class DbUtil {
 		DbUtil dbUtil=new DbUtil();
 		try {
 			dbUtil.getCon();
-			System.out.println("Êı¾İ¿âÁ¬½Ó³É¹¦");
+			System.out.println("æ•°æ®åº“è¿æ¥æˆåŠŸ");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

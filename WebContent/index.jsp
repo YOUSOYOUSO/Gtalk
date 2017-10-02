@@ -4,24 +4,14 @@
 <head>
     <title>Gtalk</title>
 </head>
-<%
 
-Cookie[] cookies = request.getCookies(); 
-for(Cookie cookie:cookies){
-	String name=cookie.getName();
-	if( name.equals("username")){
-		String nameValue=cookie.getValue();
-	%>
-	<p>灯光师照这里：<%=nameValue%></p><br>
-	<%
-	}
-}
-%>
+
 
 <body>
 	<div>Gtalk</div>
+	<div id="welcome"></div>
 	<div id="message"></div><br/>
-	<textarea rows="10" cols="40" id="ta"></textarea>
+	<textarea rows="15" cols="50" id="ta"></textarea>
        <hr/>
     <input id="text" type="text"/>
     <button onclick="send()">发送消息</button>
@@ -41,8 +31,11 @@ for(Cookie cookie:cookies){
     	}
     }
     
-  	var username=getcookie("username");
+  	var username=decodeURIComponent(getcookie("username"));
     
+  	var welcome = "欢迎："+username;  
+  	document.getElementById("welcome").innerHTML=welcome;  
+
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
         websocket = new WebSocket("ws://localhost:8080/Gtalk_java/websocket");
@@ -58,7 +51,7 @@ for(Cookie cookie:cookies){
 
     //连接成功建立的回调方法
     websocket.onopen = function () {
-    	websocket.send("WebSocket连接成功\n");
+    	websocket.send(username+"进入了聊天室\n");
     }
 
     //接收到消息的回调方法

@@ -1,10 +1,5 @@
 package model;
 
-/**
- * ”√ªßModel¿‡
- * @author www.java1234.com
- *
- */
 public class User {
 
 	private int id;

@@ -26,7 +26,11 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String userName=request.getParameter("username");
+		System.out.println("servlet:"+userName);
+		String  newname=new String(userName.getBytes("iso-8859-1"), "utf-8");
+		System.out.println(newname);
 		String password=request.getParameter("password");
 		request.setAttribute("userName", userName);
 		request.setAttribute("password", password);
@@ -36,15 +40,15 @@ public class LoginServlet extends HttpServlet{
 			con=dbUtil.getCon();
 			User currentUser=userDao.login(con, user);
 			if(currentUser==null){
-				request.setAttribute("error", "用户名或密码错误！");
-				System.out.println("用户名或密码错误！");
-				// 服务器跳转
+				request.setAttribute("error", "鐢ㄦ埛鍚嶆垨瀵嗙爜閿欒");
+				System.out.println("鐢ㄦ埛鍚嶆垨瀵嗙爜閿欒");
+			
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}else{
-				// 获取Session
+
 				HttpSession session=request.getSession();
 				session.setAttribute("currentUser", currentUser);
-				// 客户端跳转
+			
 				response.sendRedirect("index.jsp");
 			}
 		} catch (Exception e) {

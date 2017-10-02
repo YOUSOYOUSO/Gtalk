@@ -1,6 +1,10 @@
 package server;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.*;
@@ -51,10 +55,14 @@ public class websocket {
 	@OnMessage
 	public void onMessage(String message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
+		Calendar now = Calendar.getInstance(TimeZone.getTimeZone("yyyy-MM-dd"));
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd  hh:mm:ss E a ");
+		System.out.println(ft.format(dNow));
 		//群发消息
 		for(websocket item: webSocketSet){
 			try {
-				item.sendMessage(message);
+				item.sendMessage(ft.format(dNow)+"\n"+message);
 			} catch (IOException e) {
 				e.printStackTrace();
 				continue;
